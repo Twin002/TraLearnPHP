@@ -1,0 +1,337 @@
+<?php
+// Bài 1: Tạo một lớp HìnhChuNhat với các thuộc tính chiều dài và chiều rộng.
+// Tạo các phương thức để tính diện tích và chu vi của hình chữ nhật. 
+<?php
+class Rectangle{
+    protected $length;
+    protected $width;
+    public function __construct($length, $width){
+        $this->length = $length;
+        $this->width = $width;
+    }
+    public function calcArea(){
+        return $this->length * $this->width;
+    }
+    public function calcPerimeter(){
+        return ($this->length * $this->width)*2;
+    }
+}
+$length = 16;
+$width = 4;
+$rec = new Rectangle($length, $width);
+echo "Area of rectangle: " . $rec->calcArea() . "<br>";
+echo "Perimeter of rectangle: " . $rec->calcPerimeter();
+?>
+
+// Bài 2: Tạo một lớp Diem2D với các thuộc tính x và y.
+// Tạo phương thức để tính khoảng cách từ điểm hiện tại tới một điểm khác.
+<?php
+class Point2D {
+    private $x;
+    private $y;
+    public function __construct($x, $y) {
+        $this->x = $x;
+        $this->y = $y;
+    }
+    public function calculateDistance($pointD) {
+        $distanceX = $this->x - $pointD->x;
+        $distanceY = $this->y - $pointD->y;
+        $distance = sqrt(pow($distanceX, 2) + pow($distanceY, 2));
+        return $distance;
+    }
+}
+$point1 = new point2D(4, 3);
+$point2 = new point2D(8, 6);
+$distance = $point1->calculateDistance($point2);
+echo "Distance between two points: " . $distance;
+?>
+
+// Bài 3: Tạo một lớp MangSoNguyen với thuộc tính là một mảng số nguyên.
+// Tạo các phương thức để tính tổng, trung bình và phần tử lớn nhất của mảng.
+<?php
+class IntegerArray{
+    private $array;
+    public function __construct($array) {
+        $this->array = $array;
+    }
+    public function sum() {
+        return array_sum($this->array);
+    }
+    public function average() {
+        $sum = $this->sum();
+        $element = count($this->array);
+        return $sum / $element;
+    }
+    public function elementMax() {
+        return max($this->array);
+    }
+}
+$array = new IntegerArray([1, 2, 3, 4, 5]);
+echo "Sum of array: " . $array->sum() . "<br>";
+echo "Average of array: " . $array->average() . "<br>";
+echo "The largest element of the array: " . $array->elementMax();
+?>
+
+// Bài 4: Tạo một lớp DongHo với các thuộc tính giờ, phút và giây.
+// Tạo phương thức để hiển thị thời gian hiển thị dưới định dạng "HH:MM:SS" và chức năng giải mã tăng giây.
+<?php
+class Clock {
+    private $hour;
+    private $minute;
+    private $second;
+    public function __construct($hour,$minute,$second) {
+        $this->hour = $hour;
+        $this->minute = $minute;
+        $this->second = $second;
+    }
+    public function showTime() {
+       $hourFormatted = str_pad($this->hour, 2, "0", STR_PAD_LEFT);
+       $minuteFormatted = str_pad($this->minute, 2, "0", STR_PAD_LEFT);
+       $secondFormatted = str_pad($this->second, 2, "0", STR_PAD_LEFT);
+        echo "$hourFormatted:$minuteFormatted:$secondFormatted";
+    }
+    public function increaseSeconds() {
+        $this->second++;
+        if ($this->second >= 60) {
+            $this->second = 0;
+            $this->minute++;
+            if ($this->minute >= 60) {
+                $this->minute = 0;
+                $this->hour;
+                if ($this->hour >= 24) {
+                    $this->hour= 0;
+                }
+            }
+        }
+    }
+}
+$Clock = new Clock(11, 15, 00);
+echo "The present time: ";
+$Clock->showTime();
+echo "<br>";
+$Clock->increaseSeconds();
+echo "Time after incrementing seconds: ";
+$Clock->showTime();
+?>
+
+// Bài 5: Tạo một lớp SinhVien với các thuộc tính mã số, họ và tên.
+// Tạo lớp DanhSachSinhVien với các phương thức bổ sung sinh viên mới và hiển thị danh sách sinh viên.
+<?php
+class Student {
+    private $code;
+    private $name;
+    public function __construct($code, $name) {
+        $this->code = $code;
+        $this->name = $name;
+    }
+    public function getCode() {
+        return $this->code;
+    }
+    public function getName() {
+        return $this->name;
+    }
+}
+class studentList {
+    private $list;
+    public function __construct() {
+        $this->list = array();
+    }
+    public function moreStudent($student) {
+        $this->list[] = $student;
+    }
+    public function showList() {
+        foreach ($this->list as $student) {
+            echo "code: " . $student->getCode() . ", name: " . $student->getName() . "<br>";
+        }
+    }
+}
+$studentList = new studentList();
+$student1 = new student("SV001", "Trần Thị A");
+$student2 = new student("SV002", "Lê Văn B");
+$studentList->moreStudent($student1);
+$studentList->moreStudent($student2);
+echo "studentList: <br>";
+$studentList->showList();
+?>
+
+// Bài 6: Tạo một lớp XeHoi với các thuộc tính là hãng xe, màu sắc và năm sản xuất.
+// Tạo phương thức để hiển thị đầy đủ thông tin của xe.
+<?php
+class Car {
+    private $carCompany;
+    private $color;
+    private $yearManufacture;
+    public function __construct($carCompany, $color, $yearManufacture) {
+        $this->carCompany = $carCompany;
+        $this->color = $color;
+        $this->yearManufacture = $yearManufacture;
+    }
+    public function displayInformation() {
+        echo "Car Company: " . $this->carCompany . "<br>";
+        echo "Color: " . $this->color . "<br>";
+        echo "Year Of Manufacture: " . $this->yearManufacture . "<br>";
+    }
+}
+$car = new Car("Mercedes", "White", 2002);
+$car->displayInformation();
+?>
+
+// Bài 7: Tạo một lớp PhanSo với các thuộc tính số và mẫu số.
+// Tạo các phương thức để thực hiện các phép toán cộng, trừ, nhân và chia giữa các phân số.
+<?php
+class Fraction {
+    private $numerator;
+    private $denominator;
+
+    public function __construct($numerator, $denominator) {
+        $this->numerator = $numerator;
+        $this->denominator = $denominator;
+    }
+    public function getNumerator() {
+        return $this->numerator;
+    }
+    public function getDenominator() {
+        return $this->denominator;
+    }
+    public function addFractions($Fraction) {
+        $newNumerator = $this->numerator * $Fraction->getDenominator() + $this->denominator * $Fraction->getNumerator();
+        $newDenominator = $this->denominator * $Fraction->getDenominator();
+        return new Fraction($newNumerator, $newDenominator);
+    }
+    public function subtractFractions($Fraction) {
+        $newNumerator = $this->numerator * $Fraction->getDenominator() - $this->denominator * $Fraction->getNumerator();
+        $newDenominator = $this->denominator * $Fraction->getDenominator();
+        return new Fraction($newNumerator, $newDenominator);
+    }
+    public function multiplyFractions($Fraction) {
+        $newNumerator = $this->numerator * $Fraction->getNumerator();
+        $newDenominator = $this->denominator * $Fraction->getDenominator();
+        return new Fraction($newNumerator, $newDenominator);
+    }
+    public function divideFractions($Fraction) {
+        $newNumerator = $this->numerator * $Fraction->getNumerator();
+        $newDenominator = $this->denominator * $Fraction->getDenominator();
+        return new Fraction($newNumerator, $newDenominator);
+    }
+    public function reduceFraction() {
+        $UCLN = $this->findUCLN($this->tuSo, $this->mauSo);
+        $newNumerator = $this->numerator / $UCLN;
+        $newDenominator = $this->denominator / $UCLN;
+        return new Fraction($newNumerator, $newDenominator);
+    }
+    private function findUCLN($a, $b) {
+        while ($b != 0) {
+            $temp = $a % $b;
+            $a = $b;
+            $b = $temp;
+        }
+        return abs($a);
+    }
+}
+$Fraction1 = new fraction(2, 3);
+$Fraction2 = new fraction(4, 8);
+$add = $Fraction1->addFractions($Fraction2);
+$subtract = $Fraction1->subtractFractions($Fraction2);
+$multiply = $Fraction1->multiplyFractions($Fraction2);
+$divide = $Fraction1->divideFractions($Fraction2);
+echo "Add Fraction : " . $add->getNumerator() . "/" . $add->getDenominator() . "<br>";
+echo "Subtract Fraction: " . $subtract->getNumerator() . "/" . $subtract->getDenominator() . "<br>";
+echo "Multiply Fraction: " . $multiply->getNumerator() . "/" . $multiply->getDenominator() . "<br>";
+echo "Divide Fraction: " . $divide->getNumerator() . "/" . $divide->getDenominator() . "<br>";
+?>
+
+// Bài 8: Tạo một lớp Người với các thuộc tính tên, tuổi và địa chỉ.
+// Tạo phương thức để hiển thị thông tin người dùng.
+<?php
+class People {
+    private $name;
+    private $age;
+    private $address;
+    public function __construct($name, $age, $address) {
+        $this->name = $name;
+        $this->age = $age;
+        $this->address = $address;
+    }
+    public function getName() {
+        return $this->name;
+    }
+    public function getAge() {
+        return $this->age;
+    }
+    public function getAddress() {
+        return $this->address;
+    }
+    public function displayInformation() {
+        echo "Name: " . $this->name . "<br>";
+        echo "Age: " . $this->age . "<br>";
+        echo "Address: " . $this->address . "<br>";
+    }
+}
+$People = new People("Trần Thị A", 21, "Thanh Hóa");
+$People->displayInformation();
+?>
+
+// Bài 9: Tạo một lớp SanPham với các thuộc tính tên, giá và mô tả.
+// Tạo phương thức để hiển thị thông tin chi tiết của sản phẩm.
+<?php
+class Product {
+    private $name;
+    private $price;
+    private $describe;
+    public function __construct($name, $price, $describe) {
+        $this->name = $name;
+        $this->price = $price;
+        $this->describe = $describe;
+    }
+    public function getName() {
+        return $this->name;
+    }
+    public function getPrice() {
+        return $this->price;
+    }
+    public function getDescribe() {
+        return $this->describe;
+    }
+    public function displayInformation() {
+        echo "Product's name: " . $this->name . "<br>";
+        echo "Price: " . $this->price . " vnd <br>";
+        echo "Describe: " . $this->describe . "<br>";
+    }
+}
+$Product = new Product("BabyTea", 230000, "T-shirts for women");
+$Product->displayInformation();
+?>
+
+// Bài 10: Tạo một lớp DatPhong với các thuộc tính tên, ngày đến và số đêm ở lại.
+// Tạo phương thức tính tổng số tiền cần thanh toán dựa trên giá phòng.
+<?php
+class BookRoom {
+    private $name;
+    private $arrivalDate;
+    private $numberOfNights;
+    public function __construct($name, $arrivalDate, $numberOfNights) {
+        $this->name = $name;
+        $this->arrivalDate = $arrivalDate;
+        $this->numberOfNights = $numberOfNights;
+    }
+    public function getName() {
+        return $this->name;
+    }
+    public function getArrivalDate() {
+        return $this->arrivalDate;
+    }
+    public function getNumberOfNights() {
+        return $this->numberOfNights;
+    }
+    public function calculateTotalAmount($roomRates) {
+        return $roomRates * $this->numberOfNights;
+    }
+}
+$BookRoom = new BookRoom("Trần Thị A", "2023-07-05", 3);
+$roomRates = 1500000;
+$totalMoney = $BookRoom->calculateTotalAmount($roomRates);
+echo "Customer Name: " . $BookRoom->getName() . "<br>";
+echo "Arrival Date: " . $BookRoom->getArrivalDate() . "<br>";
+echo "Number Of Nights Stay: " . $BookRoom->getNumberOfNights() . "<br>";
+echo "Total Amount To Pay: " . $totalMoney . " vnd <br>";
+?>

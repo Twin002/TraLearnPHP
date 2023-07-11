@@ -1,0 +1,40 @@
+// Tạo một abstract class "Database" (Cơ sở dữ liệu) với các phương thức trừu tượng như "connect", "query" và "disconnect". 
+// Tạo các lớp con "MySQLDatabase" và "PostgreSQLDatabase" kế thừa từ lớp Database và triển khai các phương thức theo cách riêng của từng loại cơ sở dữ liệu.
+<?php
+abstract class Database {
+    abstract public function connect();
+    abstract public function query($sql);
+    abstract public function disconnect();
+}
+class MySQLDatabase extends Database {
+    public function connect() {
+        return "Connecting to MySQL database."."<br>";
+    }
+    public function query($sql) {
+        return "Running MySQL query: $sql"."<br>";
+    }
+    public function disconnect() {
+        return "Disconnecting from MySQL database."."<br>";
+    }
+}
+class PostgreSQLDatabase extends Database {
+    public function connect() {
+        return "Connecting to PostgreSQL database."."<br>";
+    }
+    public function query($sql) {
+       return "Running PostgreSQL query: $sql"."<br>";
+    }
+    public function disconnect() {
+        return "Disconnecting from PostgreSQL database."."<br>";
+    }
+}
+$mysql = new MySQLDatabase();
+echo $mysql->connect(); 
+echo $mysql->query("SELECT * FROM MySQL"); 
+echo $mysql->disconnect(); 
+
+$postgres = new PostgreSQLDatabase();
+echo $postgres->connect();
+echo $postgres->query("SELECT * FROM PostgreSQL"); 
+echo $postgres->disconnect(); 
+?>

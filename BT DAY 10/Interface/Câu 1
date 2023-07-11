@@ -1,0 +1,32 @@
+// Tạo một interface "Resizable" (Có thể điều chỉnh kích thước) với một phương thức là "resize". 
+// Tạo một lớp "Rectangle" (Hình chữ nhật) và triển khai interface Resizable để thay đổi kích thước của hình chữ nhật.
+<?php
+interface Resizable {
+    public function resize($unit);
+}
+class Rectangle implements Resizable {
+    private $width;
+    private $height;
+    public function __construct($width, $height) {
+        $this->width = $width;
+        $this->height = $height;
+    }
+    public function resize($unit) {
+        $this->width = ($this->width + $unit);
+        $this->height = ($this->height + $unit );
+    }
+    public function getWidth() {
+        return $this->width;
+    }
+    public function getHeight() {
+        return $this->height;
+    }
+}
+$rectangle = new Rectangle(4, 6);
+echo "Original Width: " . $rectangle->getWidth() . "<br>";
+echo "Original Height: " . $rectangle->getHeight() . "<br>"; 
+
+$rectangle->resize(3);
+echo "Resized Width: " . $rectangle->getWidth() . "<br>";
+echo "Resized Height: " . $rectangle->getHeight() ;
+?>

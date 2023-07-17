@@ -1,12 +1,14 @@
 <?php
-require_once 'pdo.php';
+    require_once 'pdo.php';
+    require_once "../category/pdo.php";
+    $productConnection = new ProductConnection();
 
-$data = [
-'prodId' => $_POST['prodID'],
-'prodName' => $_POST['prodName'],
-'prodPrice' => $_POST['prodPrice'],
-'cateId' => $_POST['cateId']
-];
-createNewProdData($data);
-header("Location: http://localhost/learn_php/btvn8/product/index.php");
+    $data = [
+        'prodId' => '',
+        'prodName' => $_POST['name'],
+        'prodPrice' => $_POST['price'],
+        'cateId' => $_POST['cateId']
+    ];
+    $productConnection->createNewProdData($data);
+    header("Location: http://localhost/huyenmy/product/index.php");
 ?>

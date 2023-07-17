@@ -1,55 +1,51 @@
 <?php
-    require_once 'pdo.php';
-    $categories = all();
+    require_once "pdo.php";
+    $categoryConnection= new CategoryConnection();
+    $category=$categoryConnection->getData();
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
+    <title>Category</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
 </head>
 <body>
-<div class="container mt-3">
-    <div class="container-fluid"><h3>List Category</h3></div>
-    <a class="btn btn-success" href="./create.php">Create</a>
-    <table class="table table-hover">
+    <div class="container mt-3">
+        <div>
+            <h3>List Categories</h3>
+            <a href="add.php" class="btn btn-success" style="margin-right: 5px;">Create</a>
+        </div>
+        <table class="table table-hover">
         <thead>
-        <tr>
-            <th scope="col">Id</th>
+            <tr>
+            <th scope="col">STT</th>
+            <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Action</th>
-        </tr>
+            </tr>
         </thead>
         <tbody>
-        <?php foreach ($categories as $category) : ?>
-        <tr>
-            <th scope="row"><?= $category['id'] ?></th>
-            <td><?= $category['name'] ?></td>
-            <td>
-                <form id="delete_<?= $category['id'] ?>" action="./delete.php" method="post">
-                    <input type="hidden" value="<?=$category['id'];?>" name="id">
-                    <a class="btn btn-primary"  href="./edit.php?id=<?=$category['id']?>">Edit</a>
-                    <button type="button" class="btn btn-danger" onclick="confirmDelete(<?= $category['id'] ?>)">Delete</button>
-                   
-
-                </form>
-            </td>
-        </tr>
-        <?php endforeach; ?>
+            <?php 
+                $stt = 1;
+                foreach($category as $value): ?>
+            <tr>
+                <td><?= $stt++; ?></td>
+                <td><?= $value['id'];?></td>
+                <td><?= $value['name'];?></td>
+                <td>
+                    <form id="delete_<?= $value['id'] ?>" action="delete.php" method="POST" style="display:flex">
+                        <a href="./edit.php?id=<?= $value['id']?>" class="btn btn-dark" style="margin-right: 5px">Edit</a>
+                        <input type="hidden" value="<?= $value['id'] ?>" name="id">
+                        <a class="btn btn-dark" onclick="confirmDelete(<?= $value['id'] ?>)">Delete</a>
+                    </form>
+                </td>
+            </tr>
+            <?php endforeach; ?>
         </tbody>
-    </table>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script>
+        </table>  
+    </div>
+    <script>
     function confirmDelete(id) {
         let result = confirm('Are you sure?');
         if (result === true) {

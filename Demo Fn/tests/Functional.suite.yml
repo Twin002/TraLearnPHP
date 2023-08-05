@@ -1,4 +1,4 @@
-class_name: UnitTester
+class_name: FunctionalTester
 modules:
     enabled:
         - Asserts

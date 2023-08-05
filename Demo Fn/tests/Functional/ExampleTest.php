@@ -1,13 +1,13 @@
 <?php
 
 
-    namespace Tests\Unit;
+    namespace Tests\Functional;
     
     
-    class YourTestClass extends \Codeception\Test\Unit
+    class YourTestClass extends \Codeception\Test\Functional
     {
         /**
-         * @var \UnitTester
+         * @var \FunctionalTester
          */
         protected function setUp(): void
     {

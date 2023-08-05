@@ -1,8 +1,0 @@
-actor: ApiTester
-suite_namespace: Tests\Api
-modules:
-    # enable helpers as array
-    enabled:
-     - REST:
-            url:  'https://reqres.in/api'
-            depends: PhpBrowser
